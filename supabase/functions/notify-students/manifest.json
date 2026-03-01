@@ -1,0 +1,20 @@
+{
+  "short_name": "Almoutamayiz",
+  "name": "Almoutamayiz",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/XfH1FghM/IMG-20260111-172954.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/XfH1FghM/IMG-20260111-172954.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffc633",
+  "background_color": "#000000"
+}
