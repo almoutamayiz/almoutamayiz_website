@@ -1,0 +1,169 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;800;900&display=swap');
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+:root {
+  /* Global disable at root level */
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cairo', sans-serif;
+  background-color: black;
+  color: white;
+  /* Smooth font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Keep overflow hidden on body, scrolling is handled by app containers */
+  touch-action: pan-y;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* =========================================
+   STRICT PROTECTION RULES
+   ========================================= */
+
+*, *::before, *::after {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+  outline: none !important;
+  /* Eliminate tap delay */
+  touch-action: manipulation;
+}
+
+/* Disable interaction with images completely (No save, no drag) */
+img {
+  pointer-events: none !important;
+  -webkit-user-drag: none !important;
+}
+
+/* Allow links/buttons to be clicked but NOT dragged/selected */
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  pointer-events: auto !important;
+  cursor: pointer;
+  -webkit-user-drag: none !important;
+}
+
+/* =========================================
+   EXCEPTIONS (Allow Typing)
+   ========================================= */
+
+input:not([type="submit"]):not([type="button"]), 
+textarea, 
+[contenteditable="true"] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important; /* Allow context menu inside inputs */
+  pointer-events: auto !important;
+  cursor: text !important;
+  touch-action: auto;
+}
+
+/* =========================================
+   UTILITIES & PERFORMANCE
+   ========================================= */
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.bg-dots {
+  background-image: radial-gradient(rgba(255, 198, 51, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+button:active, .clickable:active {
+  transform: scale(0.97);
+  opacity: 0.8;
+}
+
+/* Optimized Animations */
+.section-entry {
+  /* Simplified for performance - no slide, just instant or fast fade */
+  animation: fadeIn 0.15s ease-out forwards;
+  will-change: opacity;
+  backface-visibility: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 
+   HIGH PERFORMANCE SCROLLING (120Hz feel)
+   Forces GPU compositing for the scroll container
+*/
+.scroll-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Native smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  
+  /* Prevent scroll chaining */
+  overscroll-behavior-y: contain;
+  
+  /* Hardware Acceleration Hacks */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  
+  /* Hint to browser to optimize scrolling paint */
+  will-change: scroll-position;
+}
+
+/* Reduce repaint cost for glass cards */
+.backdrop-blur-xl, .backdrop-blur-2xl, .backdrop-blur-3xl {
+  backdrop-filter: blur(8px) !important; /* Cap blur intensity for performance */
+  -webkit-backdrop-filter: blur(8px) !important;
+  transform: translate3d(0, 0, 0); 
+}
