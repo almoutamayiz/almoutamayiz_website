@@ -1,0 +1,8 @@
+{
+  "name": "Almoutamayiz_web_update_1",
+  "description": "",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
